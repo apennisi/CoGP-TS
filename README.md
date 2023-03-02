@@ -1,6 +1,6 @@
 # Complex Geometry Part Topological Skeleton (CoGP-TS)
 
-CoGP-TS is a library based on [Lightweight OpenPose](https://github.com/Daniil-Osokin/lightweight-human-pose-estimation.pytorch). This work replace the MobileNetV1 with MobileNetV3 and makes many changes in order to make it work with industrial parts with different views.
+CoGP-TS is a library based on [Lightweight OpenPose](https://github.com/Daniil-Osokin/lightweight-human-pose-estimation.pytorch). This work replaces the MobileNetV1 with MobileNetV3 and makes many changes in order to make it work with industrial parts with different views.
 
 <p align="center">
   <img src="images/samples.png" />

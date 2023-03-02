@@ -50,8 +50,9 @@ class Pose:
 
     def draw(self, img):
         assert self.keypoints.shape == (Pose.num_kpts, 2)
-        # if the connections BODY_PARTS_PAF_IDS are more than the numbers of keypoints, please subtract the exceeded number of connections
-        for part_id in range(len(config['body_parts_paf_ids'])):
+        # if the connections BODY_PARTS_PAF_IDS are more than the numbers of keypoints, we need to subtract the exceeded number of connections
+        offset = abs(len(config['body_parts_paf_ids']) - config['keypoint_number'])
+        for part_id in range(len(config['body_parts_paf_ids']) - offset):
             kpt_a_id = config['body_parts_kpt_ids'][part_id][0]
             global_kpt_a_id = self.keypoints[kpt_a_id, 0]
             if global_kpt_a_id != -1:

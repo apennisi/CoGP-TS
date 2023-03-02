@@ -181,7 +181,6 @@ def evaluate(labels, output_name, images_folder, net, visualize=False):
         file_name = sample['file_name']
         img = sample['img']
 
-        # avg_heatmaps, avg_pafs = infer(net, img, scales, height_size, stride)
         heatmaps, pafs, scale, pad = infer_fast(net, img, height_size, stride, upsample_ratio)
 
         total_keypoints_num = 0
