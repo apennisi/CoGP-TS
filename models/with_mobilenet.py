@@ -4,7 +4,7 @@ from torch import nn
 from modules.conv import conv, conv_dw, conv_dw_no_bn
 from models.mobilenetv3 import MobileNetV3
 import collections
-
+from utils.config import config
 
 class Cpm(nn.Module):
     def __init__(self, in_channels, out_channels):
@@ -112,7 +112,7 @@ def load_from_mobilenetv3(net, checkpoint):
 
 
 class PoseEstimationWithMobileNetV3(nn.Module):
-  def __init__(self, num_refinement_stages=1, num_channels=128, num_heatmaps=6, num_pafs=8, pretrained='mobilenetv3_small_67.4.pth.tar'):
+  def __init__(self, num_refinement_stages=config['num_refinement_steps'], num_channels=128, num_heatmaps=config['keypoint_number']+1, num_pafs=len(config['body_parts_paf_ids'])*2, pretrained='mobilenetv3_small_67.4.pth.tar'):
     super().__init__()
     self.model = MobileNetV3()
     if pretrained:
