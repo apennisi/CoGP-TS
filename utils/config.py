@@ -17,7 +17,8 @@ config['num_refinement_steps'] = 1
 config['points_per_limb'] = 2
 
 #this configuration has to be done according to reorder_map, if your reorder_map and to_coco_map are the same, you can use the same annotation of your annotations
-config['body_parts_kpt_ids'] = [[0, 1], [0, 2], [0, 3], [0, 4]] 
+config['body_parts_kpt_ids'] = [[0, 1], [0, 2], [0, 3], [0, 4]]
+#pafs represent the vectors connecting the keypoints, each vector is represented as a 2 way out tensor, one for x and one for y
 config['body_parts_paf_ids'] = [[0, 1], [2, 3], [4, 5], [6,7]]
 config['paf_number'] = 8
 config['reorder_map'] = [3, 0, 1, 2, 4] # the order of points is: [right, bottom, left, center, top], we convert it to [center, right, bottom, left, top]
