@@ -136,7 +136,7 @@ if __name__ == '__main__':
     parser.add_argument('--images', nargs='+', default='', help='path to input image(s)')
     parser.add_argument('--cpu', action='store_true', help='run network inference on cpu')
     parser.add_argument('--track', type=int, default=0, help='track pose id in video')
-    parser.add_argument('--smooth', type=int, default=0, help='smooth pose keypoints')
+   
     args = parser.parse_args()
 
     if args.video == '' and args.images == '':
@@ -152,4 +152,4 @@ if __name__ == '__main__':
     else:
         args.track = 0
 
-    run_demo(net, frame_provider, args.height_size, args.cpu, args.track, args.smooth)
+    run_demo(net, frame_provider, args.height_size, args.cpu, args.track)
