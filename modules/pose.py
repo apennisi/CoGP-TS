@@ -67,7 +67,7 @@ class Pose:
             if global_kpt_a_id != -1 and global_kpt_b_id != -1:
                 cv2.line(img, (int(x_a), int(y_a)), (int(x_b), int(y_b)), Pose.color, 2)
 
-        colors = [(randint(0, 255), randint(0, 255), randint(0, 255)) for _ in Pose.num_kpts]
+        colors = [(randint(0, 255), randint(0, 255), randint(0, 255)) for _ in range(0, Pose.num_kpts)]
         for kpt_id in range(Pose.num_kpts):
           if self.keypoints[kpt_id, 0] == -1:
               continue
