@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from random import randint
 
 from modules.one_euro_filter import OneEuroFilter
 from utils.config import config
@@ -66,7 +67,7 @@ class Pose:
             if global_kpt_a_id != -1 and global_kpt_b_id != -1:
                 cv2.line(img, (int(x_a), int(y_a)), (int(x_b), int(y_b)), Pose.color, 2)
 
-        colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 255), (255, 255, 0)]
+        colors = [(randint(0, 255), randint(0, 255), randint(0, 255)) for _ in Pose.num_kpts]
         for kpt_id in range(Pose.num_kpts):
           if self.keypoints[kpt_id, 0] == -1:
               continue
