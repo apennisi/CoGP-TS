@@ -60,14 +60,15 @@ def run_eval(gt_file_path, dt_file_path, thresholds = config['thresholds']):
     inc_recall = {t: [] for t in thresholds}
     fns = 0
 
-    f = open(gt_file_path)
+    f = open(gt_file_path, "r")
     coco_gt = json.load(f)['annotations']
     f.close()
-    f = open(dt_file_path)
+    f = open(dt_file_path, "r")
     coco_dt = json.load(f)
     f.close()
     image_ids = [image['image_id'] for image in coco_dt]
     coco_gt = [image for id in image_ids for image in coco_gt if image['image_id'] == id]
+    print(len(coco_gt), len(coco_gt))
     for gt, dt in zip(coco_gt, coco_dt):
         gt_keypoints = gt['keypoints']
         dt_keypoints = dt['keypoints']
@@ -78,8 +79,10 @@ def run_eval(gt_file_path, dt_file_path, thresholds = config['thresholds']):
             gt_kpts.append([gt_keypoints[i], gt_keypoints[i+1]])
             visibility.append([gt_keypoints[i+2]])
         
-        if [0, 0] not in dt_keypoints:
+        if [0, 0] in gt_keypoints or [0, 0] not in dt_keypoints: 
+#        if [0, 0] not in gt_keypoints or ([0, 0] not in gt_keypoints and [0, 0] not in dt_keypoints):
             oks_value = oks(np.array(gt_kpts), np.array(dt_keypoints), np.array(visibility), config['sigmas'])
+            print(oks_value)
             tps, fps, inc_precision, inc_recall = compute_tp_fn_tn(oks_value, tps, fps, inc_precision, inc_recall, thresholds, len(coco_dt))
         else:
             fns += 1
@@ -194,8 +197,9 @@ def evaluate(labels, output_name, images_folder, net, visualize=False):
             all_keypoints[kpt_id, 1] = (all_keypoints[kpt_id, 1] * stride / upsample_ratio - pad[0]) / scale
 
         coco_keypoints, scores = convert_to_coco_format(pose_entries, all_keypoints)
-
-        image_id = int(file_name[0:file_name.rfind('.')])
+        
+        
+        image_id = file_name[0:file_name.rfind('.')]
         for idx in range(len(coco_keypoints)):
             coco_result.append({
                 'image_id': image_id,

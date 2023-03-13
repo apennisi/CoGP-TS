@@ -51,9 +51,8 @@ class Pose:
 
     def draw(self, img):
         assert self.keypoints.shape == (Pose.num_kpts, 2)
-        # if the connections BODY_PARTS_PAF_IDS are more than the numbers of keypoints, we need to subtract the exceeded number of connections
-        offset = abs(len(config['body_parts_paf_ids']) - config['keypoint_number'])
-        for part_id in range(len(config['body_parts_paf_ids']) - offset):
+
+        for part_id in range(len(config['body_parts_paf_ids'])):
             kpt_a_id = config['body_parts_kpt_ids'][part_id][0]
             global_kpt_a_id = self.keypoints[kpt_a_id, 0]
             if global_kpt_a_id != -1:
@@ -67,7 +66,7 @@ class Pose:
             if global_kpt_a_id != -1 and global_kpt_b_id != -1:
                 cv2.line(img, (int(x_a), int(y_a)), (int(x_b), int(y_b)), Pose.color, 2)
 
-        colors = [(randint(0, 255), randint(0, 255), randint(0, 255)) for _ in range(0, Pose.num_kpts)]
+        colors = [(randint(0, 255), randint(0, 255), randint(0, 255)) for _ in range(Pose.num_kpts)]
         for kpt_id in range(Pose.num_kpts):
           if self.keypoints[kpt_id, 0] == -1:
               continue

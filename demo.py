@@ -9,6 +9,7 @@ from modules.keypoints import extract_keypoints, group_keypoints
 from modules.load_state import load_state
 from modules.pose import Pose, track_poses
 from val import normalize, pad_width
+from utils.config import config
 
 class ImageReader(object):
     def __init__(self, file_names):
@@ -83,8 +84,8 @@ def run_demo(net, image_provider, height_size, cpu, track):
     if not cpu:
         net = net.cuda()
 
-    stride = 16
-    upsample_ratio = 4
+    stride = config['stride']
+    upsample_ratio = config['upsample_ratio']
     num_keypoints = Pose.num_kpts
     for img in image_provider:
         orig_img = img.copy()
@@ -109,7 +110,7 @@ def run_demo(net, image_provider, height_size, cpu, track):
                 if pose_entries[n][kpt_id] != -1.0:  # keypoint was found
                     pose_keypoints[kpt_id, 0] = int(all_keypoints[int(pose_entries[n][kpt_id]), 0])
                     pose_keypoints[kpt_id, 1] = int(all_keypoints[int(pose_entries[n][kpt_id]), 1])
-            pose = Pose(pose_keypoints, pose_entries[n][5])
+            pose = Pose(pose_keypoints, pose_entries[n][config['keypoint_number']])
             current_poses.append(pose)
 
         for pose in current_poses:
@@ -122,6 +123,7 @@ def run_demo(net, image_provider, height_size, cpu, track):
                 cv2.putText(img, 'id: {}'.format(pose.id), (pose.bbox[0], pose.bbox[1] - 16),
                             cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255))
         cv2.imshow("Image", img)
+        cv2.imwrite("test.png", img)
         cv2.waitKey()
 
 

@@ -42,6 +42,16 @@ if __name__ == '__main__':
         if image_id in annotations_by_image_id:  # image has at least 1 annotation
             subset['annotations'].extend(annotations_by_image_id[image_id])
 
+    images = subset['images']
+    annotations = subset['annotations']
+
+    for i, a in zip(images, annotations):
+        file_name = i['file_name']
+        image_id = file_name[0:file_name.rfind('.')]
+        a['image_id'] = image_id
+
+    subset['annotations'] = annotations
+
     with open(args.output_name, 'w') as f:
         json.dump(subset, f, indent=4)
 

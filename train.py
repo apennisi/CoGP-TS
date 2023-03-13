@@ -13,7 +13,7 @@ from datasets.transformations import ConvertKeypoints, Scale, Rotate, CropPad, F
 from modules.get_parameters import get_parameters_conv, get_parameters_bn, get_parameters_conv_depthwise
 from models.with_mobilenet import PoseEstimationWithMobileNet, PoseEstimationWithMobileNetV3
 from utils.config import config
-from modules.loss import l2_loss, huber_loss
+from modules.loss import l2_loss
 from modules.load_state import load_state, load_from_mobilenet
 from val import evaluate
 
@@ -27,8 +27,8 @@ def train(prepared_train_labels, train_images_folder, num_refinement_stages, bas
           
     if from_mobilenet:
       net = PoseEstimationWithMobileNetV3(pretrained=checkpoint_path)
-    else:
-      net = PoseEstimationWithMobileNet(num_refinement_stages).cuda()
+#    else:
+#      net = PoseEstimationWithMobileNetV3(pre).cuda()
 
     stride = config['stride']
     sigma = config['sigma']
@@ -67,8 +67,9 @@ def train(prepared_train_labels, train_images_folder, num_refinement_stages, bas
 
     net = DataParallel(net).cuda()
     net.train()
-    for epochId in range(current_epoch, 300):
-        print(str(epochId) + "/300")
+    epochs = 1000
+    for epochId in range(current_epoch, epochs):
+        print(str(epochId) + "/" + str(epochs))
         scheduler.step()
         total_losses = [0, 0] * (num_refinement_stages + 1)  # heatmaps loss, paf loss per stage
         batch_per_iter_idx = 0
