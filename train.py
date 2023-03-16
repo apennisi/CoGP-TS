@@ -27,8 +27,14 @@ def train(prepared_train_labels, train_images_folder, num_refinement_stages, bas
           
     if from_mobilenet:
       net = PoseEstimationWithMobileNetV3(pretrained=checkpoint_path)
-#    else:
-#      net = PoseEstimationWithMobileNetV3(pre).cuda()
+    else:
+      net = PoseEstimationWithMobileNetV3(pretrained='')
+      checkpoint = torch.load(args.checkpoint_path, map_location='cuda:0')
+      load_state(net, checkpoint)
+#      net = PoseEstimationWithMobileNetV3(pretrained="")
+#      print(checkpoint_path)
+#      net.load_state_dict(torch.load(checkpoint_path, map_location="cuda:0"))
+      net.cuda()
 
     stride = config['stride']
     sigma = config['sigma']
@@ -67,7 +73,7 @@ def train(prepared_train_labels, train_images_folder, num_refinement_stages, bas
 
     net = DataParallel(net).cuda()
     net.train()
-    epochs = 1000
+    epochs = config['epochs']
     for epochId in range(current_epoch, epochs):
         print(str(epochId) + "/" + str(epochs))
         scheduler.step()
