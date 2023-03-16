@@ -31,9 +31,6 @@ def train(prepared_train_labels, train_images_folder, num_refinement_stages, bas
       net = PoseEstimationWithMobileNetV3(pretrained='')
       checkpoint = torch.load(args.checkpoint_path, map_location='cuda:0')
       load_state(net, checkpoint)
-#      net = PoseEstimationWithMobileNetV3(pretrained="")
-#      print(checkpoint_path)
-#      net.load_state_dict(torch.load(checkpoint_path, map_location="cuda:0"))
       net.cuda()
 
     stride = config['stride']
