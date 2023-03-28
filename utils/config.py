@@ -10,7 +10,7 @@ config['upsample_ratio'] = 4
 config['gaussian_sigma'] = 7
 config['path_thickness'] = 1
 config['drop_after_epoch'] = [100, 200, 260]
-config['checkpoint_folder'] = 'checkpoints_bananone/'
+config['checkpoint_folder'] = 'checkpoints/'
 config['num_refinement_steps'] = 1
 
 #set the maximum number of point per connection
