@@ -47,4 +47,18 @@ We provide python demo just for the quick results preview. Please, consider c++ 
 
 ## Citation:
 
-Coming Soon...
+```
+@Article{electronics13153021,
+  AUTHOR = {Pennisi, Andrea and Sileo, Monica and Bloisi, Domenico Daniele and Pierri, Francesco},
+  TITLE = {Selective Grasping for Complex-Shaped Parts Using Topological Skeleton Extraction},
+  JOURNAL = {Electronics},
+  VOLUME = {13},
+  YEAR = {2024},
+  NUMBER = {15},
+  ARTICLE-NUMBER = {3021},
+  URL = {https://www.mdpi.com/2079-9292/13/15/3021},
+  ISSN = {2079-9292},
+  ABSTRACT = {To enhance the autonomy and flexibility of robotic systems, a crucial role is played by the capacity to perceive and grasp objects. More in detail, robot manipulators must detect the presence of the objects within their workspace, identify the grasping point, and compute a trajectory for approaching the objects with a pose of the end-effector suitable for performing the task. These can be challenging tasks in the presence of complex geometries, where multiple grasping-point candidates can be detected. In this paper, we present a novel approach for dealing with complex-shaped automotive parts consisting of a deep-learning-based method for topological skeleton extraction and an active grasping pose selection mechanism. In particular, we use a modified version of the well-known Lightweight OpenPose algorithm to estimate the topological skeleton of real-world automotive parts. The estimated skeleton is used to select the best grasping pose for the object at hand. Our approach is designed to be more computationally efficient with respect to other existing grasping pose detection methods. Quantitative experiments conducted with a 7 DoF manipulator on different real-world automotive components demonstrate the effectiveness of the proposed approach with a success rate of 87.04%.},
+  DOI = {10.3390/electronics13153021}
+}
+```
